@@ -3,25 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Smart Notes — Визуальные задачи</title>
-    <!-- Подключаем Fabric.js для работы с холстом -->
+    <title>Notenat 🌸 </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #f0f4f8;
-            color: #1a202c;
+            background: #fff0f5;
+            color: #4a1942;
             padding: 16px;
             overflow-x: hidden;
         }
-        
-        /* ===== ХЕДЕР ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -29,55 +21,54 @@
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 20px;
-            background: white;
+            background: #ffe4ec;
             padding: 12px 20px;
             border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(255, 105, 180, 0.15);
+            border: 1px solid #ffb6c9;
         }
         .header h1 {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #db2777, #ec4899, #f472b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
-        .header-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .header h1 small {
+            font-size: 14px;
+            font-weight: 400;
+            background: none;
+            -webkit-text-fill-color: #b07a9a;
+            color: #b07a9a;
         }
+        .header-controls { display: flex; gap: 10px; flex-wrap: wrap; }
         .header-controls button {
             padding: 8px 16px;
             border: none;
             border-radius: 10px;
-            background: #edf2f7;
+            background: #ffd6e0;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
             font-size: 13px;
+            color: #4a1942;
         }
-        .header-controls button:hover {
-            background: #e2e8f0;
-            transform: scale(0.97);
-        }
-        .btn-primary {
-            background: #667eea !important;
-            color: white !important;
-        }
-        .btn-primary:hover {
-            background: #5a67d8 !important;
-        }
-        
-        /* ===== ПАНЕЛЬ ФИГУР ===== */
+        .header-controls button:hover { background: #ffb6c9; transform: scale(0.97); }
+        .btn-primary { background: #ec4899 !important; color: white !important; }
+        .btn-primary:hover { background: #db2777 !important; }
+
+        /* Панель инструментов */
         .toolbar {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 16px;
-            background: white;
+            background: #ffe4ec;
             padding: 12px 16px;
             border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 8px rgba(255,105,180,0.1);
+            border: 1px solid #ffb6c9;
             align-items: center;
         }
         .toolbar-group {
@@ -86,23 +77,15 @@
             align-items: center;
             flex-wrap: wrap;
             padding-right: 12px;
-            border-right: 2px solid #e2e8f0;
+            border-right: 2px solid #ffb6c9;
             margin-right: 12px;
         }
-        .toolbar-group:last-child {
-            border-right: none;
-            margin-right: 0;
-        }
-        .toolbar-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a5568;
-            margin-right: 4px;
-        }
+        .toolbar-group:last-child { border-right: none; margin-right: 0; }
+        .toolbar-group label { font-size: 12px; font-weight: 600; color: #6b2b5a; margin-right: 4px; }
         .shape-btn {
             width: 44px;
             height: 44px;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #ffb6c9;
             border-radius: 10px;
             background: white;
             cursor: pointer;
@@ -112,131 +95,105 @@
             align-items: center;
             justify-content: center;
         }
-        .shape-btn:hover {
-            border-color: #667eea;
-            background: #f7fafc;
-        }
-        .shape-btn.active {
-            border-color: #667eea;
-            background: #ebf4ff;
-        }
-        
-        input[type="range"] {
-            width: 80px;
-            accent-color: #667eea;
-        }
-        input[type="color"] {
-            width: 36px;
-            height: 36px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 2px;
-        }
-        select {
-            padding: 6px 10px;
-            border-radius: 8px;
-            border: 2px solid #e2e8f0;
-16:21
+        .shape-btn:hover { border-color: #ec4899; background: #fff0f5; }
+        .shape-btn.active { border-color: #ec4899; background: #ffd6e0; }
+
+        input[type="range"] { width: 80px; accent-color: #ec4899; }
+        input[type="color"] { width: 36px; height: 36px; border: 2px solid #ffb6c9; border-radius: 8px; cursor: pointer; padding: 2px; }
+        select { padding: 6px 10px; border-radius: 8px; border: 2px solid #ffb6c9; background: white; font-size: 13px; cursor: pointer; }
+
+        /* Текстовый редактор */
+        .text-editor {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            background: #fff5f8;
+16:49
 
 
-background: white;
-            font-size: 13px;
-            cursor: pointer;
+padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid #ffb6c9;
         }
-        
-        /* ===== ХОЛСТ ===== */
+        .text-editor button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ffb6c9;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+            font-weight: 600;
+            color: #4a1942;
+        }
+        .text-editor button:hover { background: #ffd6e0; }
+        .text-editor button.active { background: #ec4899; color: white; border-color: #ec4899; }
+        .text-editor input[type="number"] { width: 50px; padding: 4px; border: 1px solid #ffb6c9; border-radius: 6px; }
+        .text-editor select { padding: 4px 8px; border: 1px solid #ffb6c9; border-radius: 6px; }
+
+        /* Сетка */
+        .grid-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .grid-control input[type="range"] { width: 80px; }
+        .grid-control span { font-size: 12px; color: #6b2b5a; font-weight: 600; min-width: 30px; }
+
+        /* Холст */
         .canvas-wrapper {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(255,105,180,0.12);
             overflow: hidden;
             margin-bottom: 20px;
             position: relative;
+            border: 2px solid #ffb6c9;
         }
-        #canvas-container {
-            width: 100%;
-            height: 600px;
-            position: relative;
-        }
-        #canvas-container canvas {
-            display: block;
-            width: 100% !important;
-            height: 100% !important;
-        }
-        
-        /* ===== СПИСОК ЗАДАЧ (активные и выполненные) ===== */
+        #canvas-container { width: 100%; height: 600px; position: relative; }
+        #canvas-container canvas { display: block; width: 100% !important; height: 100% !important; }
+
+        /* Списки задач */
         .tasks-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-top: 20px;
         }
-        @media (max-width: 700px) {
-            .tasks-section {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 700px) { .tasks-section { grid-template-columns: 1fr; } }
         .task-board {
-            background: white;
+            background: #ffe4ec;
             border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 8px rgba(255,105,180,0.1);
+            border: 1px solid #ffb6c9;
             min-height: 200px;
         }
-        .task-board h3 {
-            font-size: 16px;
-            margin-bottom: 12px;
-            color: #2d3748;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .task-board h3 span {
-            background: #edf2f7;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
+        .task-board h3 { font-size: 16px; margin-bottom: 12px; color: #4a1942; display: flex; align-items: center; gap: 8px; }
+        .task-board h3 span { background: #ffb6c9; padding: 2px 10px; border-radius: 20px; font-size: 12px; color: #4a1942; }
         .task-item {
             display: flex;
             align-items: center;
             gap: 10px;
             padding: 8px 12px;
-            background: #f7fafc;
+            background: #fff5f8;
             border-radius: 10px;
             margin-bottom: 6px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #ec4899;
             cursor: pointer;
             transition: 0.2s;
             font-size: 14px;
         }
-        .task-item:hover {
-            background: #edf2f7;
-        }
-        .task-item.done {
-            border-left-color: #48bb78;
-            opacity: 0.6;
-        }
-        .task-item.done .task-text {
-            text-decoration: line-through;
-        }
-        .task-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #667eea;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .task-text {
-            flex: 1;
-            word-break: break-word;
-        }
-        .task-shape-type {
-            font-size: 18px;
-        }
+        .task-item:hover { background: #ffd6e0; }
+        .task-item.done { border-left-color: #48bb78; opacity: 0.6; }
+        .task-item.done .task-text { text-decoration: line-through; }
+        .task-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #ec4899; cursor: pointer; flex-shrink: 0; }
+        .task-text { flex: 1; word-break: break-word; }
+        .task-shape-type { font-size: 18px; }
         .task-comment-bubble {
-            background: #edf2f7;
+            background: #ffb6c9;
             border-radius: 50%;
             width: 28px;
             height: 28px;
@@ -248,113 +205,75 @@ background: white;
             transition: 0.2s;
             flex-shrink: 0;
         }
-        .task-comment-bubble:hover {
-            background: #e2e8f0;
-            transform: scale(1.1);
-        }
-        .empty-state {
-            color: #a0aec0;
-            font-size: 14px;
-            text-align: center;
-            padding: 30px 0;
-        }
-        
-        /* ===== МОДАЛКА КОММЕНТАРИЯ ===== */
+        .task-comment-bubble:hover { background: #ec4899; transform: scale(1.1); color: white; }
+        .empty-state { color: #b07a9a; font-size: 14px; text-align: center; padding: 30px 0; }
+        .badge { font-size: 11px; background: #ffb6c9; padding: 2px 10px; border-radius: 20px; color: #4a1942; }
+
+        /* Модалка */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.4);
+16:49
+background: rgba(0,0,0,0.3);
             backdrop-filter: blur(4px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
         }
-        .modal-overlay.show {
-            display: flex;
-        }
+        .modal-overlay.show { display: flex; }
         .modal {
-            background: white;
+            background: #ffe4ec;
             border-radius: 20px;
             padding: 24px;
             max-width: 420px;
             width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
             animation: fadeUp 0.25s ease;
+            border: 2px solid #ffb6c9;
         }
-        @keyframes fadeUp {
-            from { transform: translateY(20px); opacity: 0; }
-16:21
-to { transform: translateY(0); opacity: 1; }
-        }
-        .modal h4 {
-            margin-bottom: 12px;
-            color: #2d3748;
-        }
-        .modal textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+        @keyframes fadeUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal h4 { margin-bottom: 12px; color: #4a1942; }
+        .modal textarea { width: 100%; padding: 12px; border: 2px solid #ffb6c9; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; min-height: 80px; background: white; }
+        .modal textarea:focus { outline: none; border-color: #ec4899; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 14px; justify-content: flex-end; }
+        .modal-actions button { padding: 8px 20px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .modal-actions .save-btn { background: #ec4899; color: white; }
+        .modal-actions .save-btn:hover { background: #db2777; }
+        .modal-actions .cancel-btn { background: #ffd6e0; color: #4a1942; }
+        .modal-actions .cancel-btn:hover { background: #ffb6c9; }
+
+        .hint {
+            background: #fff0f5;
+            border-left: 4px solid #ec4899;
+            padding: 12px 16px;
+            border-radius: 8px;
             font-size: 14px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 80px;
+            color: #6b2b5a;
+            margin-bottom: 16px;
+            border: 1px solid #ffb6c9;
         }
-        .modal textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-            justify-content: flex-end;
-        }
-        .modal-actions button {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .modal-actions .save-btn {
-            background: #667eea;
-            color: white;
-        }
-        .modal-actions .save-btn:hover {
-            background: #5a67d8;
-        }
-        .modal-actions .cancel-btn {
-            background: #edf2f7;
-        }
-        .modal-actions .cancel-btn:hover {
-            background: #e2e8f0;
-        }
-        
-        /* ===== ОБЩЕЕ ===== */
-        .badge {
-            font-size: 11px;
-            background: #edf2f7;
-            padding: 2px 10px;
-            border-radius: 20px;
-        }
+        .hint strong { color: #db2777; }
     </style>
 </head>
 <body>
 
-<!-- ===== ХЕДЕР ===== -->
 <div class="header">
-    <h1>🧩  Smart Notes</h1>
+    <h1>🌸  Notenat <small>— визуальные заметки</small></h1>
     <div class="header-controls">
         <button onclick="exportData()">📤 Экспорт</button>
         <button onclick="importData()">📥 Импорт</button>
-        <button class="btn-primary" onclick="clearAll()">🗑️  Очистить всё</button>
+        <button class="btn-primary" onclick="clearAll()">🗑️  Очистить</button>
     </div>
 </div>
 
-<!-- ===== ПАНЕЛЬ ИНСТРУМЕНТОВ ===== -->
+<div class="hint">
+    💡  <strong>Как пользоваться:</strong> Нажмите <strong>"➕ Добавить на холст"</strong> → выберите фигуру и введите текст. 
+    Клик по фигуре = галочка (задача выполнена). <strong>Shift + клик</strong> = комментарий. 
+    <strong>Ctrl+A</strong> на двух фигурах = стрелка.
+</div>
+
+<!-- Панель -->
 <div class="toolbar">
     <div class="toolbar-group">
         <label>Фигура:</label>
@@ -363,8 +282,11 @@ to { transform: translateY(0); opacity: 1; }
         <button class="shape-btn" data-shape="diamond" onclick="setShape('diamond')">◇</button>
         <button class="shape-btn" data-shape="cloud" onclick="setShape('cloud')">☁</button>
         <button class="shape-btn" data-shape="heart" onclick="setShape('heart')">❤</button>
+        <button class="shape-btn" data-shape="star" onclick="setShape('star')">⭐</button>
+        <button class="shape-btn" data-shape="hexagon" onclick="setShape('hexagon')">⬡</button>
+        <button class="shape-btn" data-shape="triangle" onclick="setShape('triangle')">▲</button>
     </div>
-    
+
     <div class="toolbar-group">
         <label>Контур:</label>
         <select id="strokeStyle" onchange="updateStroke()">
@@ -373,29 +295,66 @@ to { transform: translateY(0); opacity: 1; }
             <option value="dotted">····· Точечный</option>
         </select>
     </div>
-    
+
     <div class="toolbar-group">
         <label>Толщина:</label>
         <input type="range" id="strokeWidth" min="1" max="8" value="2" oninput="updateStroke()">
         <span id="strokeWidthLabel" style="font-size:12px;width:24px;">2</span>
     </div>
-    
+
     <div class="toolbar-group">
-        <label>Цвет:</label>
-        <input type="color" id="shapeColor" value="#667eea" onchange="updateColor()">
+16:49
+<label>Цвет:</label>
+        <input type="color" id="shapeColor" value="#ec4899" onchange="updateColor()">
     </div>
-    
-    <div class="toolbar-group" style="border-right:none;">
+
+    <div class="toolbar-group">
         <button class="btn-primary" onclick="addShapeToCanvas()" style="padding:8px 18px;">➕ Добавить на холст</button>
     </div>
 </div>
 
-<!-- ===== ХОЛСТ ===== -->
+<!-- Текстовый редактор (Word-стиль) -->
+<div class="toolbar" style="margin-top:-8px;">
+    <div class="toolbar-group" style="border-right:none; width:100%;">
+        <label style="font-weight:700; color:#db2777;">✏️  Текст:</label>
+        <div class="text-editor">
+            <select id="fontFamily" onchange="applyTextStyle('fontFamily', this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Comic Sans MS">Comic Sans</option>
+            </select>
+            <input type="number" id="fontSize" value="16" min="8" max="72" onchange="applyTextStyle('fontSize', this.value+'px')">
+            <button id="boldBtn" onclick="toggleTextStyle('fontWeight', 'bold')"><b>B</b></button>
+            <button id="italicBtn" onclick="toggleTextStyle('fontStyle', 'italic')"><i>I</i></button>
+            <button id="underlineBtn" onclick="toggleTextStyle('underline', true)"><u>U</u></button>
+            <button id="strikeBtn" onclick="toggleTextStyle('linethrough', true)"><s>S</s></button>
+            <input type="color" id="textColor" value="#4a1942" onchange="applyTextStyle('fill', this.value)">
+            <label style="font-size:11px; color:#6b2b5a;">Цвет текста</label>
+        </div>
+    </div>
+</div>
+
+<!-- Управление сеткой -->
+<div class="toolbar" style="margin-top:-8px;">
+    <div class="toolbar-group" style="border-right:none;">
+        <label>📐  Сетка:</label>
+        <div class="grid-control">
+            <input type="range" id="gridSize" min="10" max="100" value="30" oninput="updateGrid()">
+            <span id="gridSizeLabel">30px</span>
+        </div>
+        <button onclick="toggleGrid()" style="padding:4px 12px; border-radius:8px; border:1px solid #ffb6c9; background:white; cursor:pointer;">👁️  Показать/Скрыть</button>
+    </div>
+</div>
+
+<!-- Холст -->
 <div class="canvas-wrapper">
     <div id="canvas-container"></div>
 </div>
 
-<!-- ===== СПИСКИ ЗАДАЧ ===== -->
+<!-- Списки задач -->
 <div class="tasks-section">
     <div class="task-board" id="activeBoard">
         <h3>⏳ Активные <span id="activeCount">0</span></h3>
@@ -407,11 +366,10 @@ to { transform: translateY(0); opacity: 1; }
     </div>
 </div>
 
-<!-- ===== МОДАЛКА КОММЕНТАРИЯ ===== -->
+<!-- Модалка -->
 <div class="modal-overlay" id="commentModal">
     <div class="modal">
-16:21
-<h4>💬  Комментарий к задаче</h4>
+        <h4>💬  Комментарий к задаче</h4>
         <textarea id="commentInput" placeholder="Введите комментарий..."></textarea>
         <div class="modal-actions">
             <button class="cancel-btn" onclick="closeCommentModal()">Отмена</button>
@@ -422,7 +380,7 @@ to { transform: translateY(0); opacity: 1; }
 
 <script>
     // ============================================================
-    // 1. НАСТРОЙКА ХОЛСТА (Fabric.js)
+    // 1. ХОЛСТ
     // ============================================================
     const container = document.getElementById('canvas-container');
     const canvas = new fabric.Canvas(container, {
@@ -432,83 +390,153 @@ to { transform: translateY(0); opacity: 1; }
         selection: true,
         preserveObjectStacking: true,
     });
-    
-    // Ресайз
+
+    let gridVisible = true;
+    let gridSize = 30;
+    let gridObjects = [];
+
+    function drawGrid() {
+        // Удаляем старую сетку
+        gridObjects.forEach(obj => canvas.remove(obj));
+        gridObjects = [];
+        
+        if (!gridVisible) return;
+16:49
+const width = canvas.width || 800;
+        const height = 600;
+        const size = gridSize;
+        
+        for (let i = 0; i <= width / size; i++) {
+            const line = new fabric.Line([i * size, 0, i * size, height], {
+                stroke: '#f0d0d8',
+                strokeWidth: 0.8,
+                selectable: false,
+                evented: false,
+            });
+            canvas.add(line);
+            gridObjects.push(line);
+        }
+        for (let i = 0; i <= height / size; i++) {
+            const line = new fabric.Line([0, i * size, width, i * size], {
+                stroke: '#f0d0d8',
+                strokeWidth: 0.8,
+                selectable: false,
+                evented: false,
+            });
+            canvas.add(line);
+            gridObjects.push(line);
+        }
+        canvas.renderAll();
+    }
+
+    function updateGrid() {
+        gridSize = parseInt(document.getElementById('gridSize').value);
+        document.getElementById('gridSizeLabel').textContent = gridSize + 'px';
+        drawGrid();
+        saveData();
+    }
+
+    function toggleGrid() {
+        gridVisible = !gridVisible;
+        drawGrid();
+        saveData();
+    }
+
     function resizeCanvas() {
         const w = container.clientWidth || 800;
         canvas.setWidth(w);
         canvas.setHeight(600);
+        drawGrid();
         canvas.renderAll();
     }
     window.addEventListener('resize', resizeCanvas);
     setTimeout(resizeCanvas, 100);
-    
+
     // ============================================================
     // 2. СОСТОЯНИЕ
     // ============================================================
     let currentShape = 'rect';
     let currentStrokeStyle = 'solid';
     let currentStrokeWidth = 2;
-    let currentColor = '#667eea';
-    
+    let currentColor = '#ec4899';
+
     let tasks = [];
-    let selectedTaskId = null; // для комментария
+    let selectedTaskId = null;
     let nextId = 1;
-    
-    // Загрузка данных
+
+    // Текстовые стили (для применения к выделенному тексту)
+    let textStyles = {
+        fontFamily: 'Arial',
+        fontSize: 16,
+        fontWeight: 'normal',
+        fontStyle: 'normal',
+        underline: false,
+        linethrough: false,
+        fill: '#4a1942'
+    };
+
     function loadData() {
-        const saved = localStorage.getItem('smartNotesData');
+        const saved = localStorage.getItem('notenatData');
         if (saved) {
             try {
                 const data = JSON.parse(saved);
                 tasks = data.tasks || [];
                 nextId = data.nextId || 1;
-                // Восстанавливаем объекты на холсте
+                gridSize = data.gridSize || 30;
+                gridVisible = data.gridVisible !== undefined ? data.gridVisible : true;
+                document.getElementById('gridSize').value = gridSize;
+                document.getElementById('gridSizeLabel').textContent = gridSize + 'px';
                 if (data.canvasObjects) {
                     canvas.loadFromJSON(data.canvasObjects, () => {
                         canvas.renderAll();
-                        // Переназначить клики на объекты
                         canvas.getObjects().forEach(obj => {
                             if (obj.taskId) {
                                 obj.on('mousedown', () => onShapeClick(obj.taskId));
                             }
                         });
+                        drawGrid();
                     });
+                } else {
+                    drawGrid();
                 }
-            } catch(e) { console.warn('Ошибка загрузки', e); }
+            } catch(e) { console.warn('Ошибка загрузки', e); drawGrid(); }
+        } else {
+            drawGrid();
         }
         renderTasks();
     }
-    
+
     function saveData() {
         const data = {
             tasks: tasks,
             nextId: nextId,
+            gridSize: gridSize,
+            gridVisible: gridVisible,
             canvasObjects: canvas.toJSON(['taskId', 'comment', 'done']),
         };
-        localStorage.setItem('smartNotesData', JSON.stringify(data));
+        localStorage.setItem('notenatData', JSON.stringify(data));
     }
-    
+
     // ============================================================
-    // 3. ФИГУРЫ
+    // 3. ФИГУРЫ (НОВЫЕ!)
     // ============================================================
     function setShape(shape) {
         currentShape = shape;
-        document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
+16:49
+document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
         document.querySelector(`[data-shape="${shape}"]`).classList.add('active');
     }
-    
+
     function updateStroke() {
         currentStrokeStyle = document.getElementById('strokeStyle').value;
         currentStrokeWidth = parseInt(document.getElementById('strokeWidth').value);
         document.getElementById('strokeWidthLabel').textContent = currentStrokeWidth;
     }
-    
+
     function updateColor() {
         currentColor = document.getElementById('shapeColor').value;
     }
-    
-    // Создание фигуры
+
     function createShape(shapeType, x, y, taskText) {
         const size = 80;
         const color = currentColor;
@@ -518,10 +546,7 @@ to { transform: translateY(0); opacity: 1; }
         const strokeWidth = currentStrokeWidth;
         let shape;
         const opts = {
-            left: x - size/2,
-            top: y - size/2,
-16:21
-fill: 'rgba(102, 126, 234, 0.08)',
+            fill: color + '15',
             stroke: color,
             strokeWidth: strokeWidth,
             strokeDashArray: stroke || undefined,
@@ -531,22 +556,13 @@ fill: 'rgba(102, 126, 234, 0.08)',
             originX: 'center',
             originY: 'center',
         };
-        
+
         switch(shapeType) {
             case 'rect':
-                shape = new fabric.Rect({
-                    ...opts,
-                    width: size,
-                    height: size * 0.7,
-                    rx: 12,
-                    ry: 12,
-                });
+                shape = new fabric.Rect({ ...opts, width: size, height: size * 0.7, rx: 12, ry: 12 });
                 break;
             case 'circle':
-                shape = new fabric.Circle({
-                    ...opts,
-                    radius: size/2,
-                });
+                shape = new fabric.Circle({ ...opts, radius: size/2 });
                 break;
             case 'diamond':
                 shape = new fabric.Polygon([
@@ -554,11 +570,7 @@ fill: 'rgba(102, 126, 234, 0.08)',
                     {x: size/2, y: 0},
                     {x: 0, y: size/2},
                     {x: -size/2, y: 0}
-                ], {
-                    ...opts,
-                    originX: 'center',
-                    originY: 'center',
-                });
+                ], { ...opts, originX: 'center', originY: 'center' });
                 break;
             case 'cloud':
                 shape = new fabric.Path('M 0 0 C 10 -20, 30 -25, 40 -10 C 55 -20, 75 -10, 70 10 C 85 15, 80 35, 65 40 C 60 55, 40 60, 25 50 C 10 55, -5 45, 0 30 C -15 25, -15 10, 0 0 Z', {
@@ -582,15 +594,48 @@ fill: 'rgba(102, 126, 234, 0.08)',
                     top: y,
                 });
                 break;
-            default:
-                shape = new fabric.Rect({...opts, width: size, height: size/2, rx: 8});
+            case 'star':
+                shape = new fabric.Path('M 0 -40 L 10 -12 L 40 -12 L 15 8 L 25 36 L 0 20 L -25 36 L -15 8 L -40 -12 L -10 -12 Z', {
+                    ...opts,
+                    scaleX: 0.9,
+                    scaleY: 0.9,
+                    originX: 'center',
+                    originY: 'center',
+                    left: x,
+                    top: y,
+                });
+                break;
+            case 'hexagon':
+                shape = new fabric.Polygon([
+                    {x: 0, y: -size/2},
+                    {x: size/2 * 0.87, y: -size/4},
+                    {x: size/2 * 0.87, y: size/4},
+                    {x: 0, y: size/2},
+                    {x: -size/2 * 0.87, y: size/4},
+                    {x: -size/2 * 0.87, y: -size/4}
+                ], { ...opts, originX: 'center', originY: 'center' });
+                break;
+            case 'triangle':
+                shape = new fabric.Polygon([
+                    {x: 0, y: -size/2},
+                    {x: size/2, y: size/2},
+                    {x: -size/2, y: size/2}
+                ], { ...opts, originX: 'center', originY: 'center' });
+                break;
+16:49
+default:
+                shape = new fabric.Rect({ ...opts, width: size, height: size/2, rx: 8 });
         }
-        
-        // Добавляем текст внутри фигуры
+
+        // Текст с учётом стилей
         const text = new fabric.Text(taskText || 'Задача', {
-            fontSize: 14,
-            fontWeight: 600,
-            fill: '#2d3748',
+            fontSize: textStyles.fontSize,
+            fontWeight: textStyles.fontWeight,
+            fontStyle: textStyles.fontStyle,
+            fontFamily: textStyles.fontFamily,
+            underline: textStyles.underline,
+            linethrough: textStyles.linethrough,
+            fill: textStyles.fill,
             originX: 'center',
             originY: 'center',
             left: x,
@@ -598,7 +643,7 @@ fill: 'rgba(102, 126, 234, 0.08)',
             selectable: false,
             evented: false,
         });
-        
+
         const group = new fabric.Group([shape, text], {
             left: x - size/2,
             top: y - size/2,
@@ -611,36 +656,102 @@ fill: 'rgba(102, 126, 234, 0.08)',
             comment: '',
             done: false,
         });
-        
+
         return group;
     }
-    
+
     // ============================================================
-    // 4. ДОБАВЛЕНИЕ НА ХОЛСТ + ЗАДАЧА
+    // 4. ТЕКСТОВЫЙ РЕДАКТОР (Word-стиль)
+    // ============================================================
+    function applyTextStyle(prop, value) {
+        const activeObj = canvas.getActiveObject();
+        if (activeObj && activeObj.type === 'group') {
+            activeObj.getObjects().forEach(child => {
+                if (child.type === 'text') {
+                    child.set(prop, value);
+                }
+            });
+            canvas.renderAll();
+            saveData();
+        } else {
+            // Сохраняем стиль для новых объектов
+            if (prop === 'fontFamily') textStyles.fontFamily = value;
+            else if (prop === 'fontSize') textStyles.fontSize = parseInt(value);
+            else if (prop === 'fill') textStyles.fill = value;
+        }
+    }
+
+    function toggleTextStyle(prop, value) {
+        const activeObj = canvas.getActiveObject();
+        if (activeObj && activeObj.type === 'group') {
+            activeObj.getObjects().forEach(child => {
+                if (child.type === 'text') {
+                    const current = child.get(prop);
+                    const newVal = (current === value || current === true) ? 
+                        (prop === 'fontWeight' ? 'normal' : 
+                         prop === 'fontStyle' ? 'normal' : false) : value;
+                    child.set(prop, newVal);
+                    // Обновляем кнопки
+                    updateTextButtons(child);
+                }
+            });
+            canvas.renderAll();
+            saveData();
+        } else {
+            // Для новых задач
+            if (prop === 'fontWeight') {
+                textStyles.fontWeight = textStyles.fontWeight === 'bold' ? 'normal' : 'bold';
+            } else if (prop === 'fontStyle') {
+                textStyles.fontStyle = textStyles.fontStyle === 'italic' ? 'normal' : 'italic';
+            } else if (prop === 'underline') {
+                textStyles.underline = !textStyles.underline;
+            } else if (prop === 'linethrough') {
+                textStyles.linethrough = !textStyles.linethrough;
+            }
+        }
+    }
+
+    function updateTextButtons(textObj) {
+        document.getElementById('boldBtn').classList.toggle('active', textObj.fontWeight === 'bold');
+        document.getElementById('italicBtn').classList.toggle('active', textObj.fontStyle === 'italic');
+        document.getElementById('underlineBtn').classList.toggle('active', textObj.underline === true);
+        document.getElementById('strikeBtn').classList.toggle('active', textObj.linethrough === true);
+    }
+
+    // Обновляем кнопки при выделении
+    canvas.on('selection:created', function(e) {
+        const obj = e.selected?.[0];
+        if (obj && obj.type === 'group') {
+            const textObj = obj.getObjects().find(c => c.type === 'text');
+16:49
+if (textObj) updateTextButtons(textObj);
+        }
+    });
+
+    // ============================================================
+    // 5. ДОБАВЛЕНИЕ НА ХОЛСТ
     // ============================================================
     function addShapeToCanvas() {
         const centerX = canvas.width / 2 + (Math.random() - 0.5) * 120;
         const centerY = canvas.height / 2 + (Math.random() - 0.5) * 80;
-        
+
         const taskText = prompt('Введите задачу:', 'Новая задача');
         if (taskText === null) return;
         const text = taskText.trim() || 'Задача';
-        
+
         const group = createShape(currentShape, centerX, centerY, text);
         const taskId = nextId++;
-        
+
         group.taskId = taskId;
         group.comment = '';
         group.done = false;
-        
-        // Клик по фигуре
+
         group.on('mousedown', () => onShapeClick(taskId));
-        
+
         canvas.add(group);
         canvas.setActiveObject(group);
         canvas.renderAll();
-16:21
-// Добавляем в задачи
+
         tasks.push({
             id: taskId,
             text: text,
@@ -649,34 +760,30 @@ fill: 'rgba(102, 126, 234, 0.08)',
             comment: '',
             color: currentColor,
         });
-        
+
         saveData();
         renderTasks();
     }
-    
+
     // ============================================================
-    // 5. КЛИК ПО ФИГУРЕ — ГАЛОЧКА ИЛИ КОММЕНТАРИЙ
+    // 6. КЛИК ПО ФИГУРЕ
     // ============================================================
     function onShapeClick(taskId) {
         const task = tasks.find(t => t.id === taskId);
         if (!task) return;
-        
-        // Если зажата клавиша Shift — открываем комментарий
+
         if (window.shiftKey) {
             selectedTaskId = taskId;
             document.getElementById('commentInput').value = task.comment || '';
             document.getElementById('commentModal').classList.add('show');
             return;
         }
-        
-        // Иначе — переключаем статус
+
         task.done = !task.done;
-        
-        // Обновляем на холсте
+
         const obj = canvas.getObjects().find(o => o.taskId === taskId);
         if (obj) {
             obj.done = task.done;
-            // Визуально затемняем
             obj.getObjects().forEach(child => {
                 if (child.type === 'rect' || child.type === 'circle' || 
                     child.type === 'polygon' || child.type === 'path') {
@@ -685,26 +792,25 @@ fill: 'rgba(102, 126, 234, 0.08)',
             });
             canvas.renderAll();
         }
-        
+
         saveData();
         renderTasks();
     }
-    
+
     // ============================================================
-    // 6. КОММЕНТАРИИ (МОДАЛКА)
+    // 7. КОММЕНТАРИИ
     // ============================================================
     function closeCommentModal() {
         document.getElementById('commentModal').classList.remove('show');
         selectedTaskId = null;
     }
-    
+
     function saveComment() {
         if (selectedTaskId === null) return;
         const text = document.getElementById('commentInput').value;
         const task = tasks.find(t => t.id === selectedTaskId);
         if (task) {
             task.comment = text;
-            // Сохраняем на объекте холста
             const obj = canvas.getObjects().find(o => o.taskId === selectedTaskId);
             if (obj) obj.comment = text;
             saveData();
@@ -712,8 +818,7 @@ fill: 'rgba(102, 126, 234, 0.08)',
         }
         closeCommentModal();
     }
-    
-    // Закрытие по Esc и клику вне
+
     document.getElementById('commentModal').addEventListener('click', function(e) {
         if (e.target === this) closeCommentModal();
     });
@@ -724,20 +829,20 @@ fill: 'rgba(102, 126, 234, 0.08)',
     document.addEventListener('keyup', (e) => {
         if (e.key === 'Shift') window.shiftKey = false;
     });
-    
+
     // ============================================================
-    // 7. ОТРИСОВКА СПИСКОВ ЗАДАЧ
+    // 8. ОТРИСОВКА СПИСКОВ
     // ============================================================
     function renderTasks() {
         const active = tasks.filter(t => !t.done);
         const done = tasks.filter(t => t.done);
-        
+
         document.getElementById('activeCount').textContent = active.length;
         document.getElementById('doneCount').textContent = done.length;
-        
-        // Активные
+
         const activeList = document.getElementById('activeList');
-        if (active.length === 0) {
+16:49
+if (active.length === 0) {
             activeList.innerHTML = `<div class="empty-state">✨ Нет активных задач</div>`;
         } else {
             activeList.innerHTML = active.map(task => `
@@ -745,15 +850,13 @@ fill: 'rgba(102, 126, 234, 0.08)',
                     <input type="checkbox" ${task.done ? 'checked' : ''} 
                            onclick="event.stopPropagation(); toggleTask(${task.id})">
                     <span class="task-shape-type">${getShapeEmoji(task.shape)}</span>
-16:21
-<span class="task-text">${task.text}</span>
+                    <span class="task-text">${task.text}</span>
                     ${task.comment ? `<span class="task-comment-bubble" onclick="event.stopPropagation(); openCommentFor(${task.id})">💬 </span>` : ''}
                     <span class="badge">${task.shape}</span>
                 </div>
             `).join('');
         }
-        
-        // Выполненные
+
         const doneList = document.getElementById('doneList');
         if (done.length === 0) {
             doneList.innerHTML = `<div class="empty-state">🎉  Нет выполненных задач</div>`;
@@ -770,17 +873,20 @@ fill: 'rgba(102, 126, 234, 0.08)',
             `).join('');
         }
     }
-    
+
     function getShapeEmoji(shape) {
-        const map = { 'rect': '▭', 'circle': '◯', 'diamond': '◇', 'cloud': '☁', 'heart': '❤' };
+        const map = { 
+            'rect': '▭', 'circle': '◯', 'diamond': '◇', 'cloud': '☁', 
+            'heart': '❤', 'star': '⭐', 'hexagon': '⬡', 'triangle': '▲'
+        };
         return map[shape] || '📌 ';
     }
-    
+
     function toggleTask(id) {
         const task = tasks.find(t => t.id === id);
         if (!task) return;
         task.done = !task.done;
-        
+
         const obj = canvas.getObjects().find(o => o.taskId === id);
         if (obj) {
             obj.done = task.done;
@@ -792,32 +898,32 @@ fill: 'rgba(102, 126, 234, 0.08)',
             });
             canvas.renderAll();
         }
-        
+
         saveData();
         renderTasks();
     }
-    
+
     function openCommentFor(id) {
         selectedTaskId = id;
         const task = tasks.find(t => t.id === id);
         document.getElementById('commentInput').value = task?.comment || '';
         document.getElementById('commentModal').classList.add('show');
     }
-    
+
     // ============================================================
-    // 8. ЭКСПОРТ / ИМПОРТ
+    // 9. ЭКСПОРТ / ИМПОРТ
     // ============================================================
     function exportData() {
-        const data = localStorage.getItem('smartNotesData');
+        const data = localStorage.getItem('notenatData');
         const blob = new Blob([data], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `notes_backup_${new Date().toISOString().slice(0,10)}.json`;
+        a.download = `notenat_backup_${new Date().toISOString().slice(0,10)}.json`;
         a.click();
         URL.revokeObjectURL(url);
     }
-    
+
     function importData() {
         const input = document.createElement('input');
         input.type = 'file';
@@ -829,7 +935,8 @@ fill: 'rgba(102, 126, 234, 0.08)',
             reader.onload = function(ev) {
                 try {
                     const data = JSON.parse(ev.target.result);
-                    localStorage.setItem('smartNotesData', JSON.stringify(data));
+16:49
+localStorage.setItem('notenatData', JSON.stringify(data));
                     location.reload();
                 } catch(err) {
                     alert('Ошибка: неверный файл');
@@ -839,25 +946,24 @@ fill: 'rgba(102, 126, 234, 0.08)',
         };
         input.click();
     }
-    
+
     // ============================================================
-    // 9. ОЧИСТКА
+    // 10. ОЧИСТКА
     // ============================================================
     function clearAll() {
         if (!confirm('Удалить все задачи и очистить холст?')) return;
         tasks = [];
-16:21
-canvas.clear();
+        canvas.clear();
         canvas.backgroundColor = '#ffffff';
+        drawGrid();
         canvas.renderAll();
         saveData();
         renderTasks();
     }
-    
+
     // ============================================================
-    // 10. СТРЕЛКИ (доп.фича — соединять фигуры)
+    // 11. СТРЕЛКИ (Ctrl+A)
     // ============================================================
-    // Простая реализация: добавляем стрелку между выбранными объектами
     document.addEventListener('keydown', (e) => {
         if (e.key === 'a' && e.ctrlKey) {
             e.preventDefault();
@@ -868,14 +974,13 @@ canvas.clear();
                 const p1 = obj1.getCenterPoint();
                 const p2 = obj2.getCenterPoint();
                 const line = new fabric.Line([p1.x, p1.y, p2.x, p2.y], {
-                    stroke: '#4a5568',
+                    stroke: '#ec4899',
                     strokeWidth: 2,
                     strokeDashArray: [6, 4],
                     selectable: true,
                     hasControls: false,
                     hasBorders: false,
                 });
-                // Треугольник-наконечник
                 const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
                 const headSize = 12;
                 const head = new fabric.Triangle({
@@ -883,7 +988,7 @@ canvas.clear();
                     top: p2.y - headSize/2 * Math.sin(angle) + headSize/2 * Math.cos(angle),
                     width: headSize,
                     height: headSize,
-                    fill: '#4a5568',
+                    fill: '#ec4899',
                     angle: angle * 180 / Math.PI,
                     originX: 'center',
                     originY: 'center',
@@ -896,21 +1001,15 @@ canvas.clear();
             }
         }
     });
-    
-    // Подсказка по стрелкам
-    console.log('💡  Чтобы соединить фигуры стрелкой: выделите 2 фигуры и нажмите Ctrl+A');
-    
+
     // ============================================================
-    // 11. ЗАПУСК
+    // 12. ЗАПУСК
     // ============================================================
     loadData();
-    
-    // Автосохранение при изменении холста
+
     canvas.on('object:modified', () => saveData());
     canvas.on('object:added', () => saveData());
     canvas.on('object:removed', () => saveData());
-    
-    // Чтобы сохранить при выходе
     window.addEventListener('beforeunload', saveData);
 </script>
 </body>
